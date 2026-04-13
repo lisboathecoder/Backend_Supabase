@@ -60,7 +60,6 @@ const deletarArquivo = (tipo) => async (req, res) => {
 export const uploadFoto = uploadArquivo('foto');
 export const buscarFoto = buscarArquivo('foto');
 export const deletarFoto = deletarArquivo('foto');
-
 export const uploadDocumento = uploadArquivo('documento');
 export const buscarDocumento = buscarArquivo('documento');
 export const deletarDocumento = deletarArquivo('documento');
