@@ -70,6 +70,8 @@ export const atualizar = async (req, res) => {
             return res.status(400).json({ error: 'Corpo da requisição vazio. Envie os dados!' });
         }
 
+
+
         const exemplo = await ExemploModel.buscarPorId(parseInt(id));
 
         if (!exemplo) {
@@ -79,6 +81,11 @@ export const atualizar = async (req, res) => {
         if (req.body.nome !== undefined) {
             exemplo.nome = req.body.nome;
         }
+
+        if (req.body.nome === '') {
+            return res.status(400).json({ error: 'O campo "nome" não pode ser vazio.' });
+        }
+        
         if (req.body.foto !== undefined) {
             exemplo.foto = req.body.foto;
         }
