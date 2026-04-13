@@ -17,9 +17,9 @@ const uploadArquivo = (tipo) => async (req, res) => {
         exemplo[tipo] = await uploadStorage(id, req.file);
         const data = await exemplo.atualizar();
 
-        return res.status(200).json({ message: `${tipo} enviado com sucesso!`, url: data[tipo] });
+        return res.status(200).json({ message: `Arquivo do tipo "${tipo}" enviado com sucesso!`, url: data[tipo] });
     } catch (error) {
-        return res.status(500).json({ error: `Erro ao fazer upload do ${tipo}.` });
+        return res.status(500).json({ error: `Erro ao fazer upload do arquivo "${tipo}".` });
     }
 };
 
@@ -30,11 +30,11 @@ const buscarArquivo = (tipo) => async (req, res) => {
 
         const exemplo = await ExemploModel.buscarPorId(parseInt(id));
         if (!exemplo) return res.status(404).json({ error: 'Registro não encontrado.' });
-        if (!exemplo[tipo]) return res.status(404).json({ error: `Nenhum ${tipo} cadastrado.` });
+        if (!exemplo[tipo]) return res.status(404).json({ error: `Nenhum arquivo do tipo "${tipo}" cadastrado.` });
 
         return res.status(200).json({ url: exemplo[tipo] });
     } catch (error) {
-        return res.status(500).json({ error: `Erro ao buscar ${tipo}.` });
+        return res.status(500).json({ error: `Erro ao buscar arquivo "${tipo}".` });
     }
 };
 
@@ -45,15 +45,15 @@ const deletarArquivo = (tipo) => async (req, res) => {
 
         const exemplo = await ExemploModel.buscarPorId(parseInt(id));
         if (!exemplo) return res.status(404).json({ error: 'Registro não encontrado.' });
-        if (!exemplo[tipo]) return res.status(404).json({ error: `Nenhum ${tipo} para remover.` });
+        if (!exemplo[tipo]) return res.status(404).json({ error: `Nenhum arquivo do tipo "${tipo}" para remover.` });
 
         await deletarStorage(exemplo[tipo]);
         exemplo[tipo] = null;
         await exemplo.atualizar();
 
-        return res.status(200).json({ message: `${tipo} removido com sucesso!` });
+        return res.status(200).json({ message: `Arquivo do tipo "${tipo}" removido com sucesso!` });
     } catch (error) {
-        return res.status(500).json({ error: `Erro ao remover ${tipo}.` });
+        return res.status(500).json({ error: `Erro ao remover arquivo "${tipo}".` });
     }
 };
 
